@@ -1,0 +1,98 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zcml="http://namespaces.zope.org/zcml"
+   xmlns:zojax="http://namespaces.zope.org/zojax"
+   xmlns:browser="http://namespaces.zope.org/browser"
+   i18n_domain="zojax.contenttypes">
+
+  <registerIn registry="zojax.product.zojax-contenttypes">
+
+    <zojax:content
+       title="File"
+       name="contenttype.file"
+       class=".file.File"
+       ctclass=".file.FileType"
+       schema=".interfaces.IFile"
+       contenttype=".interfaces.IFileType"
+       type="zojax.content.type.interfaces.IActivePortalType
+	     zojax.content.documents.interfaces.IDocumentType"
+       description="An external file uploaded to the site."
+       permission="zojax.AddDocuments" />
+
+    <class class=".file.File">
+      <implements interface="zojax.ownership.interfaces.IOwnerAware" />
+      <implements interface="zojax.content.type.interfaces.IShareableContent" />
+      <implements interface="zojax.content.type.interfaces.ISearchableContent" />
+
+      <require
+	 permission="zope.View"
+	 interface=".interfaces.IFile" />
+
+      <require
+	 permission="zojax.ModifyContent"
+	 set_schema=".interfaces.IFile" />
+    </class>
+
+    <class class=".file.FileType">
+      <require
+         permission="zope.Public"
+         interface="zojax.content.type.interfaces.IContentType
+                    zope.location.interfaces.ILocation" />
+    </class>
+
+    <adapter factory=".file.Sized" />
+
+    <browser:icon
+       name="zmi_icon"
+       for=".interfaces.IFile"
+       file="file_icon.gif" />
+
+    <browser:icon
+       name="zmi_icon"
+       for=".interfaces.IFileType"
+       file="file_icon.gif" />
+
+    <zojax:pagelet
+       name="index.html"
+       for=".interfaces.IFile"
+       template="fileview.pt"
+       class=".fileviews.FileView"
+       provides="zojax.content.type.interfaces.IContentView"
+       permission="zope.View" />
+
+    <browser:defaultView
+       name="view.html"
+       for=".interfaces.IFile" />
+
+    <browser:page
+       name="view.html"
+       for=".interfaces.IFile"
+       attribute="show"
+       class=".fileviews.FileDownload"
+       permission="zope.View" />
+
+    <adapter factory=".fileviews.FileViewView" />
+
+    <!-- draft support -->
+    <zojax:draft
+       content="contenttype.file"
+       publish="zojax.AddDocuments"
+       submit="zojax.SubmitDocuments" />
+
+  </registerIn>
+
+  <!-- file factory -->
+  <adapter
+    zcml:condition="installed zope.filerepresentation"
+    factory=".factory.FileFactory" />
+
+  <!-- capabilities -->
+  <include file="capability.zcml" />
+
+  <!-- generations -->
+  <utility
+     name="zojax.contenttype.file"
+     provides="zope.app.generations.interfaces.ISchemaManager"
+     component=".generations.schemaManager" />
+
+</configure>

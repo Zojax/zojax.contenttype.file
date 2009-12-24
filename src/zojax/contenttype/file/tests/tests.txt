@@ -1,0 +1,157 @@
+====
+File
+====
+
+    >>> from zope import component, interface, event
+    >>> from zope.testbrowser.testing import Browser
+    >>> from zope.lifecycleevent import ObjectCreatedEvent
+    >>> from zojax.content.space.content import ContentSpace
+
+    >>> root = getRootFolder()
+    >>> space = ContentSpace(title=u'Space')
+    >>> event.notify(ObjectCreatedEvent(space))
+    >>> root['space'] = space
+
+    >>> actor = Browser()
+    >>> actor.handleErrors = False
+    >>> actor.addHeader("Authorization", "Basic mgr:mgrpw")
+
+Install product
+
+    >>> actor.open("http://localhost/settings/")
+    >>> actor.getLink('Products management').click()
+    >>> actor.getControl(name='availproducts:list').value = ['zojax-contenttypes']
+    >>> actor.getControl(name='install').click()
+
+    >>> actor.open("http://localhost/space/context.html/content/")
+    >>> actor.getLink('Workspaces').click()
+    >>> actor.getControl(name="workspaces.widgets.workspaces:list").value = ['documents']
+    >>> actor.getControl(name="content.edit.buttons.save").click()
+
+Add file
+
+    >>> actor.open("http://localhost/space/documents/context.html/contents/")
+    >>> actor.getLink('File').click()
+
+    >>> import os.path
+    >>> filePath = os.path.join(os.path.split(__file__)[0], 'image1.jpg')
+
+    >>> actor.getControl('Title').value = 'Test file'
+    >>> fileControl = actor.getControl('Data').mech_control
+    >>> fileControl.add_file(open(filePath), filename='image1.jpg')
+    >>> actor.getControl('Short Name').value = 'file'
+    >>> actor.getControl('Publish').click()
+
+Check name chooser
+------------------
+
+    >>> actor.open("http://localhost/space/documents/context.html/contents/")
+    >>> actor.getLink('File').click()
+
+    >>> actor.getControl('Title').value = 'Test image name choosed'
+    >>> filePath = os.path.join(os.path.split(__file__)[0], 'image1.jpg')
+    >>> fileControl = actor.getControl('Data').mech_control
+    >>> fileControl.add_file(open(filePath), filename='image1.jpg')
+    >>> actor.getControl('Publish').click()
+    >>> actor.url
+    'http://localhost/space/documents/image1.jpg/index.html'
+
+Check complex case for ie
+
+    >>> actor.open("http://localhost/space/documents/context.html/contents/")
+    >>> actor.getLink('File').click()
+
+    >>> actor.getControl('Title').value = 'Test image name choosed'
+    >>> filePath = os.path.join(os.path.split(__file__)[0], 'image1.jpg')
+    >>> fileControl = actor.getControl('Data').mech_control
+    >>> fileControl.add_file(open(filePath), filename='c:\Мои Документы\@++ртинка.jpg')
+    >>> actor.getControl('Publish').click()
+    >>> actor.url
+    'http://localhost/space/documents/%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B0.jpg/index.html'
+
+
+View
+
+    >>> actor.open("http://localhost/space/documents/file/index.html")
+
+    >>> print actor.contents
+    <!DOCTYPE html PUBLIC
+    ...
+    ...<h1 class="z-content-title">Test file</h1>...
+    <span class="discreet">Name:</span>
+      file
+      (<a href="http://localhost/space/documents/file">Download</a>)
+      <br />
+      <span class="discreet">Size:</span>
+      ... KB</div>
+    ...
+    </html>
+
+    >>> actor.getLink('Download').click()
+    >>> print actor.contents.startswith('\xff\xd8\xff\xe0\x00\x10JFIF')
+    True
+
+We have inline disposition by default
+    >>> actor.headers['Content-Disposition']
+    'inline; filename="file"'
+
+Edit
+
+    >>> actor.open("http://localhost/space/documents/file/context.html")
+    >>> actor.getControl('Title').value = 'New File'
+    >>> actor.getControl(name="form.widgets.disposition:list").value = ['attachment']
+    >>> actor.getControl(name='content.edit.buttons.save').click()
+
+    actor.open("http://localhost/space/documents/file/index.html")
+
+    >>> actor.getLink('View').click()
+    >>> print actor.contents
+    <!DOCTYPE html PUBLIC
+    ...
+    ...<h1 class="z-content-title">New File</h1>...
+    <span class="discreet">Name:</span>
+      file
+      (<a href="http://localhost/space/documents/file">Download</a>)
+      <br />
+      <span class="discreet">Size:</span>
+      ... KB</div>
+    ...
+    </html>
+
+    >>> actor.getLink('Download').click()
+    >>> print actor.contents.startswith('\xff\xd8\xff\xe0\x00\x10JFIF')
+    True
+
+We see changed disposition
+
+    >>> actor.headers['Content-Disposition']
+    'attachment; filename="file"'
+
+
+Copy
+
+    >>> actor.open("http://localhost/space/documents/context.html/contents/")
+    >>> actor.getControl(name='ids:list').value = ('file',)
+    >>> actor.getControl(name='form.buttons.copy').click()
+    >>> actor.getControl(name='form.buttons.paste').click()
+    >>> actor.open("http://localhost/space/documents/file-2/index.html")
+    >>> print actor.contents
+    <!DOCTYPE html PUBLIC
+    ...
+    ...<h1 class="z-content-title">New File</h1>...
+      <span class="discreet">Name:</span>
+      file-2
+      (<a href="http://localhost/space/documents/file-2">Download</a>)
+      <br />
+      <span class="discreet">Size:</span>
+      ... KB</div>
+    ...
+    </html>
+
+
+Unistall product
+
+    >>> actor.open("http://localhost/settings/")
+    >>> actor.getLink('Products management').click()
+    >>> actor.getControl(name='products:list').value = ['zojax-contenttypes']
+    >>> actor.getControl(name='uninstall').click()
