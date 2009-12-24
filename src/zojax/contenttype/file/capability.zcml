@@ -1,0 +1,28 @@
+<configure
+   xmlns="http://namespaces.zope.org/zope"
+   xmlns:zcml="http://namespaces.zope.org/zcml">
+
+  <!-- activity -->
+  <class class=".file.File" zcml:condition="installed zojax.activity">
+    <implements interface="zojax.activity.interfaces.IActivityAware" />
+  </class>
+
+  <!-- extensions -->
+  <class class=".file.File" 
+	 zcml:condition="installed zojax.extensions">
+    <implements interface="zojax.extensions.interfaces.IExtensible" />
+  </class>
+
+  <!-- tagging -->
+  <class class=".file.File"
+	 zcml:condition="installed zojax.content.tagging">
+    <implements interface="zojax.content.tagging.interfaces.IContentTaggable" />
+  </class>
+
+  <!-- discussion -->
+  <class class=".file.File"
+	 zcml:condition="installed zojax.content.discussion">
+    <implements interface="zojax.content.discussion.interfaces.IDiscussible" />
+  </class>
+
+</configure>
