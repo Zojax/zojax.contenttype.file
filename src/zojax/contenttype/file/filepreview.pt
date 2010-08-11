@@ -1,0 +1,2 @@
+<tal:block define="context context/data"
+           content="structure pagelet:+preview" />

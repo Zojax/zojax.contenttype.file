@@ -31,6 +31,16 @@ class FileDownload(object):
                 contentDisposition=self.context.disposition)
 
 
+class FilePreview(object):
+
+    def show(self):
+        if self.context.data is not None:
+            return self.context.data.showPreview(
+                self.request,
+                filename=self.context.__name__,
+                contentDisposition='inline')
+
+
 class FileView(object):
 
     def size(self):

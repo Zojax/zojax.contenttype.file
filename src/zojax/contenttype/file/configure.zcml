@@ -15,7 +15,7 @@
        schema=".interfaces.IFile"
        contenttype=".interfaces.IFileType"
        type="zojax.content.type.interfaces.IActivePortalType
-	     zojax.content.documents.interfaces.IDocumentType"
+       zojax.content.documents.interfaces.IDocumentType"
        description="An external file uploaded to the site."
        permission="zojax.AddDocuments" />
 
@@ -25,12 +25,12 @@
       <implements interface="zojax.content.type.interfaces.ISearchableContent" />
 
       <require
-	 permission="zope.View"
-	 interface=".interfaces.IFile" />
+   permission="zope.View"
+   interface=".interfaces.IFile" />
 
       <require
-	 permission="zojax.ModifyContent"
-	 set_schema=".interfaces.IFile" />
+   permission="zojax.ModifyContent"
+   set_schema=".interfaces.IFile" />
     </class>
 
     <class class=".file.FileType">
@@ -60,6 +60,14 @@
        provides="zojax.content.type.interfaces.IContentView"
        permission="zope.View" />
 
+    <zojax:pagelet
+       name="preview.html"
+       for=".interfaces.IFile"
+       template="filepreview.pt"
+       provides="zojax.content.type.interfaces.IContentView"
+       permission="zope.View" />
+
+
     <browser:defaultView
        name="view.html"
        for=".interfaces.IFile" />
@@ -70,6 +78,15 @@
        attribute="show"
        class=".fileviews.FileDownload"
        permission="zope.View" />
+
+    <browser:page
+      name="preview"
+      for=".interfaces.IFile"
+      attribute="show"
+      class=".fileviews.FilePreview"
+      permission="zope.View"
+      />
+
 
     <adapter factory=".fileviews.FileViewView" />
 
