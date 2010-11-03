@@ -102,6 +102,9 @@
   <adapter
     zcml:condition="installed zope.filerepresentation"
     factory=".factory.FileFactory" />
+    
+  <!-- default ISearchableText adapter -->
+  <adapter factory=".searchable.FileSearchableText" />
 
   <!-- capabilities -->
   <include file="capability.zcml" />
