@@ -40,7 +40,7 @@ class FileSearchableText(ContentSearchableText):
             converter = component.getUtility(IConverter, self.content.data.mimeType)
             if converter.isAvailable():
                 res += ' ' + unicode(*converter.convert(self.content.data.data, 'utf-8', 'text/plain'))
-        except ComponentLookupError:
+        except:
             pass
         return res
         
