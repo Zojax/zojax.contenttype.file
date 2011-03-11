@@ -6,6 +6,8 @@
       i18n:translate="">Download</a><tal:block condition="context/data/previewIsAvailable">, <a tal:attributes="href string:${context/@@absolute_url}/preview.html"
       i18n:translate="">Preview</a></tal:block>)
 <br />
-<tal:block define="context context/data"
-           content="structure pagelet:+preview" />
+<tal:block condition="context/data/previewIsAvailable">
+  <tal:block define="context context/data"
+             content="structure pagelet:+preview" />
+</tal:block>
 </tal:block>
