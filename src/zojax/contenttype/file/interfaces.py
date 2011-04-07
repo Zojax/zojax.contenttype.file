@@ -26,6 +26,12 @@ dispositionVocabulary = SimpleVocabulary((
         SimpleTerm('attachment', 'attachment', _('Download')),
         SimpleTerm('inline', 'inline', _('View inline'))))
 
+accessModeVocabulary = SimpleVocabulary((
+        SimpleTerm('download', 'download', _('Download only')),
+        SimpleTerm('preview', 'preview', _('Preview only')),
+        SimpleTerm('all', 'all', _('Download and preview')),
+        ))
+
 
 class IFile(interface.Interface):
 
@@ -49,6 +55,16 @@ class IFile(interface.Interface):
         vocabulary = dispositionVocabulary,
         default = 'inline',
         required = True)
+    
+    accessMode = RadioChoice(
+        title = _(u'How do you want this file to be accessed.'),
+        vocabulary = accessModeVocabulary,
+        default = 'all',
+        required = True)
+    
+    canPreview = interface.Attribute('canPreview')
+    
+    canDownload = interface.Attribute('canDownload')
 
 
 class IFileType(interface.Interface):

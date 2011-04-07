@@ -3,10 +3,11 @@
 <span class="discreet" i18n:translate="">Name:</span>
   <tal:block content="context/__name__" />
   (<a tal:attributes="href string:${context/@@absolute_url}/view.html"
-      i18n:translate="">Download</a><tal:block condition="context/data/previewIsAvailable">, <a tal:attributes="href string:${context/@@absolute_url}/preview.html"
+      tal:condition="context/canDownload"
+      i18n:translate="">Download</a><tal:block condition="context/canPreview">&nbsp;<a tal:attributes="href string:${context/@@absolute_url}/preview.html"
       i18n:translate="">Preview</a></tal:block>)
 <br />
-<tal:block condition="context/data/previewIsAvailable">
+<tal:block condition="context/canPreview">
   <tal:block define="context context/data"
              content="structure pagelet:+preview" />
 </tal:block>

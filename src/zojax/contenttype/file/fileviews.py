@@ -24,7 +24,7 @@ from zojax.contenttype.file.interfaces import IFile
 class FileDownload(object):
 
     def show(self):
-        if self.context.data is not None:
+        if self.context.canDownload:
             return self.context.data.show(
                 self.request,
                 filename=self.context.__name__,
@@ -34,7 +34,7 @@ class FileDownload(object):
 class FilePreview(object):
 
     def show(self):
-        if self.context.data is not None:
+        if self.context.canPreview:
             return self.context.data.showPreview(
                 self.request,
                 filename=self.context.__name__,

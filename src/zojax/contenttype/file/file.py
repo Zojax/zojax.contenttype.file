@@ -35,6 +35,17 @@ class File(PersistentItem):
     data = FileFieldProperty(IFile['data'])
 
     disposition = FieldProperty(IFile['disposition'])
+    
+    accessMode = FieldProperty(IFile['accessMode'])
+    
+    @property
+    def canDownload(self):
+        return self.accessMode in ['all', 'download']
+    
+    @property
+    def canPreview(self):
+        return self.accessMode in ['all', 'preview'] and \
+                self.data.previewIsAvailable
 
 
 class Sized(object):
