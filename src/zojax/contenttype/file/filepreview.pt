@@ -1,4 +1,4 @@
-<tal:block i18n:domain="zojax.contenttypes">
+<tal:block i18n:domain="zojax.contenttype.file">
   <br />
 <span class="discreet" i18n:translate="">Name:</span>
   <tal:block content="context/__name__" />
