@@ -8,5 +8,5 @@
       i18n:translate="" class="preview">Preview</a></tal:block>)
   <br />
   <span class="discreet" i18n:translate="">Size:</span>
-  <tal:block i18n:translate="" content="view/size" />
+  <tal:block content="view/size" />
 </tal:block>
