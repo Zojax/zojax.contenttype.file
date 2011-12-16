@@ -1,0 +1,101 @@
+##############################################################################
+#
+# Copyright (c) 2003-2004 Zope Corporation and Contributors.
+# All Rights Reserved.
+#
+# This software is subject to the provisions of the Zope Public License,
+# Version 2.1 (ZPL).  A copy of the ZPL should accompany this distribution.
+# THIS SOFTWARE IS PROVIDED "AS IS" AND ANY AND ALL EXPRESS OR IMPLIED
+# WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS
+# FOR A PARTICULAR PURPOSE.
+#
+##############################################################################
+msgid ""
+msgstr ""
+"Project-Id-Version: Development/Unknown\n"
+"POT-Creation-Date: Sun Dec 11 10:46:09 2011\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Zope 3 Developers <zope3-dev@zope.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: zope/app/locales/extract.py\n"
+
+#: src/zojax/contenttype/file/configure.zcml:10
+msgid "File"
+msgstr ""
+
+#: src/zojax/contenttype/file/configure.zcml:10
+msgid "An external file uploaded to the site."
+msgstr ""
+
+#: src/zojax/contenttype/file/filepreview.pt:3
+#: src/zojax/contenttype/file/fileview.pt:3
+msgid "Name:"
+msgstr ""
+
+#: src/zojax/contenttype/file/filepreview.pt:7
+#: src/zojax/contenttype/file/fileview.pt:7
+msgid "Preview"
+msgstr ""
+
+#: src/zojax/contenttype/file/fileview.pt:10
+msgid "Size:"
+msgstr ""
+
+#: src/zojax/contenttype/file/interfaces.py:26
+#: src/zojax/contenttype/file/filepreview.pt:5
+#: src/zojax/contenttype/file/fileview.pt:5
+msgid "Download"
+msgstr ""
+
+#: src/zojax/contenttype/file/interfaces.py:27
+msgid "View inline"
+msgstr ""
+
+#: src/zojax/contenttype/file/interfaces.py:30
+msgid "Download only"
+msgstr ""
+
+#: src/zojax/contenttype/file/interfaces.py:31
+msgid "Preview only"
+msgstr ""
+
+#: src/zojax/contenttype/file/interfaces.py:32
+msgid "Download and preview"
+msgstr ""
+
+#: src/zojax/contenttype/file/interfaces.py:39
+msgid "Title"
+msgstr ""
+
+#: src/zojax/contenttype/file/interfaces.py:40
+msgid "File title."
+msgstr ""
+
+#: src/zojax/contenttype/file/interfaces.py:44
+msgid "Description"
+msgstr ""
+
+#: src/zojax/contenttype/file/interfaces.py:45
+msgid "A short summary of the file."
+msgstr ""
+
+#: src/zojax/contenttype/file/interfaces.py:49
+msgid "Data"
+msgstr ""
+
+#: src/zojax/contenttype/file/interfaces.py:50
+msgid "The actual content of the file."
+msgstr ""
+
+#: src/zojax/contenttype/file/interfaces.py:54
+msgid "How do you want to view this file."
+msgstr ""
+
+#: src/zojax/contenttype/file/interfaces.py:60
+msgid "How do you want this file to be accessed."
+msgstr ""
+
