@@ -77,10 +77,12 @@ View
     >>> print actor.contents
     <!DOCTYPE html PUBLIC
     ...
-    ...<h1 class="z-content-title">Test file</h1>...
-    <span class="discreet">Name:</span>
+    ...<h1 class="z-content-title">Test file</h1>
+    ...
+      <span class="discreet">Name:</span>
       file
-      (<a href="http://localhost/space/documents/file/view.html">Download</a>, <a href="http://localhost/space/documents/file/preview.html">Preview</a>)<br />
+      (<a href="http://localhost/space/documents/file/view.html">Download</a>&nbsp;<a class="preview" href="http://localhost/space/documents/file/preview.html">Preview</a>)
+      <br />
       <span class="discreet">Size:</span>
       ... KB</div>
     ...
@@ -107,10 +109,12 @@ Edit
     >>> print actor.contents
     <!DOCTYPE html PUBLIC
     ...
-    ...<h1 class="z-content-title">New File</h1>...
-    <span class="discreet">Name:</span>
+    ...<h1 class="z-content-title">New File</h1>
+    ...
+      <span class="discreet">Name:</span>
       file
-      (<a href="http://localhost/space/documents/file/view.html">Download</a>, <a href="http://localhost/space/documents/file/preview.html">Preview</a>)<br />
+      (<a href="http://localhost/space/documents/file/view.html">Download</a>&nbsp;<a class="preview" href="http://localhost/space/documents/file/preview.html">Preview</a>)
+      <br />
       <span class="discreet">Size:</span>
       ... KB</div>
     ...
@@ -136,10 +140,12 @@ Copy
     >>> print actor.contents
     <!DOCTYPE html PUBLIC
     ...
-    ...<h1 class="z-content-title">New File</h1>...
+    ...<h1 class="z-content-title">New File</h1>
+    ...
       <span class="discreet">Name:</span>
       file-2
-      (<a href="http://localhost/space/documents/file-2/view.html">Download</a>, <a href="http://localhost/space/documents/file-2/preview.html">Preview</a>)<br />
+      (<a href="http://localhost/space/documents/file-2/view.html">Download</a>&nbsp;<a class="preview" href="http://localhost/space/documents/file-2/preview.html">Preview</a>)
+      <br />
       <span class="discreet">Size:</span>
       ... KB</div>
     ...
