@@ -15,6 +15,8 @@
 
 $Id$
 """
+import string
+
 from zope import interface, component
 from zope.schema.fieldproperty import FieldProperty
 from zope.size import byteDisplay
@@ -67,7 +69,9 @@ class FileType(ContentType):
     def add(self, content, name=''):
         if not name and content is not None:
             try:
-                name = content.data.filename.split('\\')[-1].split('/')[-1]
+                name = content.data.filename.split('\\')[-1].split('/')[-1].lower()
+                valid_chars = "-.%s%s" % (string.lowercase, string.digits)
+                name = ''.join(c for c in name if c in valid_chars)
             except AttributeError:
                 pass
         return super(FileType, self).add(content, name)
