@@ -25,9 +25,14 @@ class FileDownload(object):
 
     def show(self):
         if self.context.canDownload:
+            try:
+                filename = self.context.data.filename
+            except:
+                filename = self.context.__name__
+
             return self.context.data.show(
                 self.request,
-                filename=self.context.__name__,
+                filename=filename,
                 contentDisposition=self.context.disposition)
 
 
@@ -35,9 +40,14 @@ class FilePreview(object):
 
     def show(self):
         if self.context.canPreview:
+            try:
+                filename = self.context.data.filename
+            except:
+                filename = self.context.__name__
+
             return self.context.data.showPreview(
                 self.request,
-                filename=self.context.__name__,
+                filename=filename,
                 contentDisposition='inline')
 
 
@@ -45,6 +55,16 @@ class FileView(object):
 
     def size(self):
         return ISized(self.context).sizeForDisplay()
+
+class FilePreviewView(object):
+
+    def filename(self):
+        try:
+            filename = self.context.data.filename
+        except:
+            filename = self.context.__name__
+
+        return filename
 
 
 class FileViewView(object):

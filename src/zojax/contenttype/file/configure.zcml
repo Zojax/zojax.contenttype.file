@@ -67,6 +67,7 @@
        name="preview.html"
        for=".interfaces.IFile"
        template="filepreview.pt"
+       class=".fileviews.FilePreviewView"
        provides="zojax.content.type.interfaces.IContentView"
        permission="zope.View" />
 
@@ -105,7 +106,7 @@
   <adapter
     zcml:condition="installed zope.filerepresentation"
     factory=".factory.FileFactory" />
-    
+
   <!-- default ISearchableText adapter -->
   <adapter factory=".searchable.FileSearchableText" />
 
