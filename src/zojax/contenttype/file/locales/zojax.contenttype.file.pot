@@ -99,3 +99,6 @@ msgstr ""
 msgid "How do you want this file to be accessed."
 msgstr ""
 
+#: src/zojax/contenttype/file/fileviews.py:69
+msgid "File no longer exists or has been deleted."
+msgstr ""

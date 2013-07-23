@@ -20,6 +20,7 @@ from zope.size.interfaces import ISized
 from zojax.content.type.interfaces import IContentViewView
 from zojax.contenttype.file.interfaces import IFile
 from zojax.statusmessage.interfaces import IStatusMessage
+from zojax.contenttypes.interfaces import _
 
 
 class FileDownload(object):
@@ -61,12 +62,11 @@ class FileView(object):
 class FileDownloadView(object):
 
     def filename(self):
-        # import pdb; pdb.set_trace()
         file_url = '/'.join(self.request.URL.__str__().split('/')[:-1])
         if self.context.data.size > 0:
             self.redirect(file_url+'/download.html')
         else:
-            IStatusMessage(self.request).add('File no longer exists or has been deleted')
+            IStatusMessage(self.request).add(_('File no longer exists or has been deleted.'))
         try:
             filename = self.context.data.filename
         except:
