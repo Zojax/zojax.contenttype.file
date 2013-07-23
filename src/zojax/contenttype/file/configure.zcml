@@ -71,13 +71,20 @@
        provides="zojax.content.type.interfaces.IContentView"
        permission="zope.View" />
 
-
-    <browser:defaultView
+    <zojax:pagelet
        name="view.html"
-       for=".interfaces.IFile" />
+       for=".interfaces.IFile"
+       template="filepreview.pt"
+       class=".fileviews.FileDownloadView"
+       provides="zojax.content.type.interfaces.IContentView"
+       permission="zope.View" />
+
+    <!--<browser:defaultView-->
+       <!--name="view.html"-->
+       <!--for=".interfaces.IFile" />-->
 
     <browser:page
-       name="view.html"
+       name="download.html"
        for=".interfaces.IFile"
        attribute="show"
        class=".fileviews.FileDownload"
