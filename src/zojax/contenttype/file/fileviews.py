@@ -63,7 +63,7 @@ class FileDownloadView(object):
 
     def filename(self):
         file_url = '/'.join(self.request.URL.__str__().split('/')[:-1])
-        if self.context.data.size > 0 and not 'delete' in self.request.URL.__str__().split('/')[-1]:
+        if self.context.data.size > 0:
             self.redirect(file_url+'/download.html')
         else:
             IStatusMessage(self.request).add(_('File no longer exists or has been deleted.'))
