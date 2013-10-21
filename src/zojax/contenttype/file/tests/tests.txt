@@ -64,7 +64,7 @@ Check complex case for ie
     >>> actor.getControl('Title').value = 'Test image name choosed'
     >>> filePath = os.path.join(os.path.split(__file__)[0], 'image1.jpg')
     >>> fileControl = actor.getControl('Data').mech_control
-    >>> fileControl.add_file(open(filePath), filename='test_file.jpg')
+    >>> fileControl.add_file(open(filePath), filename='тест_test_file.jpg')
     >>> actor.getControl('Publish').click()
     >>> actor.url
     'http://localhost/space/documents/testfile.jpg/index.html'
