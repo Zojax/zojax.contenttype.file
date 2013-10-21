@@ -56,14 +56,6 @@
        file="file_icon.gif" />
 
     <zojax:pagelet
-       name="view.html"
-       for=".interfaces.IFile"
-       template="filepreview.pt"
-       class=".fileviews.FileDownloadView"
-       provides="zojax.content.type.interfaces.IContentView"
-       permission="zope.View" />
-
-    <zojax:pagelet
        name="index.html"
        for=".interfaces.IFile"
        template="fileview.pt"
@@ -77,6 +69,14 @@
        template="filepreview.pt"
        class=".fileviews.FilePreviewView"
        provides="zojax.content.type.interfaces.IContentView"
+       permission="zope.View" />
+
+    <zojax:pagelet
+       name="view.html"
+       for=".interfaces.IFile"
+       template="filepreview.pt"
+       class=".fileviews.FileDownloadView"
+       provides="zojax.content.type.interfaces.IContent"
        permission="zope.View" />
 
     <!--<browser:defaultView-->

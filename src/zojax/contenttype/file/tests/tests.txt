@@ -64,10 +64,10 @@ Check complex case for ie
     >>> actor.getControl('Title').value = 'Test image name choosed'
     >>> filePath = os.path.join(os.path.split(__file__)[0], 'image1.jpg')
     >>> fileControl = actor.getControl('Data').mech_control
-    >>> fileControl.add_file(open(filePath), filename='c:\Мои Документы\@++ртинка.jpg')
+    >>> fileControl.add_file(open(filePath), filename='test_file.jpg')
     >>> actor.getControl('Publish').click()
     >>> actor.url
-    'http://localhost/space/documents/%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B0.jpg/index.html'
+    'http://localhost/space/documents/testfile.jpg/index.html'
 
 
 View
@@ -94,7 +94,7 @@ View
 
 We have inline disposition by default
     >>> actor.headers['Content-Disposition']
-    'inline; filename="file"'
+    'inline; filename="image1.jpg"'
 
 Edit
 
@@ -127,7 +127,7 @@ Edit
 We see changed disposition
 
     >>> actor.headers['Content-Disposition']
-    'attachment; filename="file"'
+    'attachment; filename="image1.jpg"'
 
 
 Copy
@@ -144,10 +144,57 @@ Copy
     ...
       <span class="discreet">Name:</span>
       file-2
-      (<a href="http://localhost/space/documents/file-2/view.html">Download</a>&nbsp;<a class="preview" href="http://localhost/space/documents/file-2/preview.html">Preview</a>)
+      (<a href="http://localhost/space/documents/file-2/view.html">Download</a>)
       <br />
       <span class="discreet">Size:</span>
       ... KB</div>
+    ...
+    </html>
+
+
+
+
+File without content
+
+Add file
+
+    >>> actor.open("http://localhost/space/documents/context.html/contents/")
+    >>> actor.getLink('File').click()
+    >>> actor.getControl('Title').value = 'Test file witout content'
+    >>> actor.getControl('Short Name').value = 'file-without-content'
+    >>> actor.getControl('Publish').click()
+    >>> actor.open("http://localhost/space/documents/file-without-content/index.html/")
+    >>> print actor.contents
+    <!DOCTYPE html PUBLIC
+    ...
+    ...<h1 class="z-content-title">Test file witout content</h1>
+    ...
+      <span class="discreet">Name:</span>
+      file-without-content
+      (<a href="http://localhost/space/documents/file-without-content/view.html">Download</a>)
+      <br />
+      <span class="discreet">Size:</span>
+      ... KB</div>
+    ...
+    </html>
+
+Try to download it
+
+    >>> actor.getLink('Download').click()
+    >>> print actor.contents
+    <!DOCTYPE html PUBLIC
+    ...
+    <div class="statusMessage">File no longer exists or has been deleted.</div>
+    ...
+    </html>
+
+Delete normal file
+
+    >>> actor.open("http://localhost/space/documents/file/delete.html/")
+    >>> print actor.contents
+    <!DOCTYPE html PUBLIC
+    ...
+    <h1>Are you sure you want remove this content item?</h1>
     ...
     </html>
 
