@@ -75,13 +75,19 @@ View
     >>> actor.open("http://localhost/space/documents/file/index.html")
 
     >>> print actor.contents
-    <!DOCTYPE html PUBLIC
+    <!DOCTYPE html PUBLIC...
     ...
-    ...<h1 class="z-content-title">Test file</h1>
-    ...
+    </div><h1 class="z-content-title">Test file</h1>
+      <div class="z-content-byline">
+    <BLANKLINE>
+      Created by <a href="http://localhost/people/manager/">Manager</a>
+     Last modified at ...
+    </div>
+      <div class="z-content-body">
+      <br />
       <span class="discreet">Name:</span>
       file
-      (<a href="http://localhost/space/documents/file/view.html">Download</a>&nbsp;<a class="preview" href="http://localhost/space/documents/file/preview.html">Preview</a>)
+      (<a href="http://localhost/space/documents/file/view.html">Download</a>)
       <br />
       <span class="discreet">Size:</span>
       ... KB</div>
@@ -107,13 +113,13 @@ Edit
 
     >>> actor.getLink('View').click()
     >>> print actor.contents
-    <!DOCTYPE html PUBLIC
+    <!DOCTYPE html PUBLIC...
     ...
     ...<h1 class="z-content-title">New File</h1>
     ...
       <span class="discreet">Name:</span>
       file
-      (<a href="http://localhost/space/documents/file/view.html">Download</a>&nbsp;<a class="preview" href="http://localhost/space/documents/file/preview.html">Preview</a>)
+      (<a href="http://localhost/space/documents/file/view.html">Download</a>)
       <br />
       <span class="discreet">Size:</span>
       ... KB</div>
