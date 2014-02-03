@@ -6,8 +6,10 @@ File
     >>> from zope.testbrowser.testing import Browser
     >>> from zope.lifecycleevent import ObjectCreatedEvent
     >>> from zojax.content.space.content import ContentSpace
+    >>> from zope.app.component.hooks import setSite
 
     >>> root = getRootFolder()
+    >>> setSite(root)
     >>> space = ContentSpace(title=u'Space')
     >>> event.notify(ObjectCreatedEvent(space))
     >>> root['space'] = space
@@ -158,3 +160,4 @@ Unistall product
     >>> actor.getLink('Products management').click()
     >>> actor.getControl(name='products:list').value = ['zojax-contenttypes']
     >>> actor.getControl(name='uninstall').click()
+    >>> setSite(None)
