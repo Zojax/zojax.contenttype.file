@@ -62,7 +62,9 @@ setup(name = 'zojax.contenttype.file',
                           'zojax.widget.radio',
                           'zopyx.txng3.core',
                           ],
-      extras_require = dict(test=['zojax.contenttypes [test]']),
+      extras_require = dict(test=[
+          'zope.app.file',
+          'zojax.contenttypes [test]']),
       include_package_data = True,
       zip_safe = False
       )
