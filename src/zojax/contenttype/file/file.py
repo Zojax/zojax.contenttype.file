@@ -21,12 +21,12 @@ from zope import interface, component
 from zope.schema.fieldproperty import FieldProperty
 from zope.size import byteDisplay
 from zope.size.interfaces import ISized
-from zope.app.container.contained import NameChooser
+#from zope.app.container.contained import NameChooser
 
 from zojax.content.type.item import PersistentItem
 from zojax.content.type.contenttype import ContentType
 from zojax.filefield.field import FileFieldProperty
-from zojax.filefield.interfaces import IFile as IFileData
+#from zojax.filefield.interfaces import IFile as IFileData
 
 from interfaces import IFile
 
@@ -37,17 +37,17 @@ class File(PersistentItem):
     data = FileFieldProperty(IFile['data'])
 
     disposition = FieldProperty(IFile['disposition'])
-    
+
     accessMode = FieldProperty(IFile['accessMode'])
-    
+
     @property
     def canDownload(self):
-        return self.accessMode in ['all', 'download']
-    
+        return self.accessMode in ['all', 'download'] and self.data.size
+
     @property
     def canPreview(self):
         return self.accessMode in ['all', 'preview'] and \
-                self.data.previewIsAvailable
+            self.data.previewIsAvailable
 
 
 class Sized(object):
