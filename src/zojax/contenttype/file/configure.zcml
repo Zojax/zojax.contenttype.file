@@ -91,6 +91,13 @@
        permission="zope.View" />
 
     <browser:page
+       name="download.html"
+       for=".interfaces.IFile"
+       attribute="show"
+       class=".fileviews.FileDownload"
+       permission="zope.View" />
+
+    <browser:page
       name="preview"
       for=".interfaces.IFile"
       attribute="show"
