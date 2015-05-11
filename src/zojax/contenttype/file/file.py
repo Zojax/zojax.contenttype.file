@@ -21,12 +21,12 @@ from zope import interface, component
 from zope.schema.fieldproperty import FieldProperty
 from zope.size import byteDisplay
 from zope.size.interfaces import ISized
-#from zope.app.container.contained import NameChooser
+# from zope.app.container.contained import NameChooser
 
 from zojax.content.type.item import PersistentItem
 from zojax.content.type.contenttype import ContentType
 from zojax.filefield.field import FileFieldProperty
-#from zojax.filefield.interfaces import IFile as IFileData
+# from zojax.filefield.interfaces import IFile as IFileData
 
 from interfaces import IFile
 
@@ -42,7 +42,8 @@ class File(PersistentItem):
 
     @property
     def canDownload(self):
-        return self.accessMode in ['all', 'download'] and self.data.size
+        return self.accessMode in ['all', 'download'] and \
+            hasattr(self.data, 'size') and self.data.size > 0
 
     @property
     def canPreview(self):

@@ -16,8 +16,9 @@
 $Id$
 """
 from zope import interface, component
+from zope.proxy import removeAllProxies
 from zope.size.interfaces import ISized
-#from zope.traversing.browser import absoluteURL
+# from zope.traversing.browser import absoluteURL
 
 from zojax.content.type.interfaces import IContentViewView
 from zojax.contenttype.file.interfaces import IFile
@@ -29,23 +30,25 @@ class FileDownload(object):
 
     def show(self):
         if self.context.canDownload:
+            context = removeAllProxies(self.context)
             try:
-                filename = self.context.data.filename
+                filename = context.data.filename
             except:
-                filename = self.context.__name__
+                filename = context.__name__
 
-            return self.context.data.show(
+            return context.data.show(
                 self.request,
                 filename=filename,
                 contentDisposition=self.context.disposition)
 
         # NOTE: workaround for the items without a file (#460)
-        if not self.context.data.size:
+        if not hasattr(self.context.data, 'size') or \
+           self.context.data.size == 0:
             IStatusMessage(self.request).add(_(
                 'File no longer exists or has been deleted.'))
 
             self.request.response.redirect('index.html')
-            #self.redirect("%s/" % absoluteURL(self.context, self.request))
+            # self.redirect("%s/" % absoluteURL(self.context, self.request))
 
 
 class FilePreview(object):
@@ -63,30 +66,7 @@ class FilePreview(object):
                 contentDisposition='inline')
 
 
-class FileView(object):
-
-    def size(self):
-        return ISized(self.context).sizeForDisplay()
-
-
-#class FileDownloadView(object):
-
-#    def filename(self):
-#        file_url = '/'.join(self.request.URL.__str__().split('/')[:-1])
-#        if self.context.data.size > 0:
-#            self.redirect(file_url + '/download.html')
-#        else:
-#            IStatusMessage(self.request).add(_(
-#                'File no longer exists or has been deleted.'))
-#        try:
-#            filename = self.context.data.filename
-#        except:
-#            filename = self.context.__name__
-
-#        return filename
-
-
-class FilePreviewView(object):
+class BaseView(object):
 
     def filename(self):
         try:
@@ -95,6 +75,45 @@ class FilePreviewView(object):
             filename = self.context.__name__
 
         return filename
+
+    def file_exists(self):
+        """ checks whether the file exist """
+
+        context = removeAllProxies(self.context)
+
+        if hasattr(context, 'data'):
+            if hasattr(context.data, 'size') and context.data.size > 0:
+                return True
+
+        IStatusMessage(self.request).add(
+            _('File no longer exists or has been deleted.'))
+        return False
+
+
+class FileView(BaseView):
+
+    def size(self):
+        return ISized(self.context).sizeForDisplay()
+
+
+# class FileDownloadView(BaseView):
+#
+#    def filename(self):
+#        context = removeAllProxies(self.context)
+#        file_url = '/'.join(self.request.URL.__str__().split('/')[:-1])
+#        if self.file_exists():
+#            self.redirect(file_url + '/download.html')
+#
+#        try:
+#            filename = self.context.data.filename
+#        except:
+#            filename = self.context.__name__
+#
+#        return filename
+
+
+class FilePreviewView(BaseView):
+    """ FilePreview View """
 
 
 class FileViewView(object):
